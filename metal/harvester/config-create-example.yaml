@@ -1,0 +1,26 @@
+# http://boot.vin-lab.com/harvester/v1.0.1-rc2/config-create.yaml
+token: token
+os:
+  hostname: node1
+  ssh_authorized_keys:
+    - github:vinnie357
+    - ssh-rsa AAAAmypublickey
+  dns_nameservers:
+    - 192.168.3.2
+    - 192.168.0.1
+  ntp_servers:
+    - 0.us.pool.ntp.org
+    - 1.us.pool.ntp.org
+  password: rancher
+install:
+  mode: create
+  networks:
+    harvester-mgmt: # The management bond name. This is mandatory.
+      interfaces:
+        - name: eth0
+      default_route: true
+      method: dhcp
+  device: /dev/nvme0n1
+  iso_url: http://boot.vin-lab.com/harvester/v1.0.1-rc2/harvester-v1.0.1-rc2-amd64.iso
+  vip: 192.168.0.71 # The VIP to access the Harvester GUI. Make sure the IP is free to use.
+  vip_mode: static # Or dhcp, check configuration file for more information.

@@ -1,0 +1,40 @@
+---
+services:
+  web:
+    #https://hub.docker.com/r/gitlab/gitlab-ce/tags?page=1&ordering=last_updated
+    image: "gitlab/gitlab-ce:14.0.9-ce.0"
+    restart: unless-stopped
+    hostname: "gitlab.vin-lab.com"
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://gitlab.vin-lab.com'
+        # Add any other gitlab.rb configuration here, each on its own line
+    ports:
+      - "80:80"
+      - "443:443"
+      - "22:22"
+    volumes:
+      - "/volume1/docker/gitlab/config:/etc/gitlab"
+      - "/volume1/docker/gitlab/logs:/var/log/gitlab"
+      - "/volume1/docker/gitlab/data:/var/opt/gitlab"
+    # if direct exists
+    networks:
+      direct_network:
+        ipv4_address: 192.168.0.249
+networks:
+  direct_network:
+    external: true
+# if direct doesn't exist
+# networks:
+#   gitlab_network:
+#     ipv4_address: 192.168.0.249
+# networks:
+#   gitlab_network:
+#     driver: macvlan
+#     driver_opts:
+#       parent: eth0
+#     ipam:
+#       config:
+#         - subnet: 192.168.0.249/24
+#           gateway: 192.168.0.1
+#           ip_range: 192.168.0.249/32

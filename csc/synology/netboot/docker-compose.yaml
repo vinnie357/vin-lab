@@ -1,0 +1,38 @@
+---
+version: "2.1"
+services:
+  netbootxyz:
+    image: linuxserver/netbootxyz
+    container_name: netbootxyz
+    environment:
+      - PUID=1026
+      - PGID=100
+    volumes:
+      - /volume1/docker/netboot/config:/config
+      - /volume1/docker/netboot/assets:/assets #optional
+    ports:
+      - 3000:3000
+      - 69:69/udp
+      - 8080:80
+    restart: unless-stopped
+    # if direct exists
+    networks:
+      direct_network:
+        ipv4_address: 192.168.0.250
+networks:
+  direct_network:
+    external: true
+# if direct doesn't exist
+# networks:
+#   netbootxyz_network:
+#    ipv4_address: 192.168.0.250
+# networks:
+#   netbootxyz_network:
+#     driver: macvlan
+#     driver_opts:
+#       parent: eth0
+#     ipam:
+#       config:
+#         - subnet: 192.168.0.0/24
+#           gateway: 192.168.0.1
+#           ip_range: 192.168.0.250/32

@@ -1,0 +1,31 @@
+apiVersion: v1
+data:
+  Corefile: |
+    vin-lab.com:53 {
+      forward . 192.168.3.2
+     }
+    .:53 {
+         errors
+         health {
+             lameduck 5s
+         }
+         ready
+         kubernetes cluster.local in-addr.arpa ip6.arpa {
+           pods insecure
+           fallthrough in-addr.arpa ip6.arpa
+         }
+         prometheus :9153
+         forward . 192.168.3.2 192.168.3.1 {
+           prefer_udp
+         }
+         cache 30
+         loop
+         reload
+         loadbalance
+     }
+kind: ConfigMap
+metadata:
+  labels:
+    addonmanager.kubernetes.io/mode: EnsureExists
+  name: coredns
+  namespace: kube-system
