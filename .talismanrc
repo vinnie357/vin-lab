@@ -34,4 +34,4 @@ fileignoreconfig:
 - filename: metal/readme.md
   checksum: c115639357a015c65128931ff3f2f2a2ffb3c38d8ee48b38cbc284fa4dbc0dc2
 - filename: csc/synology/gitlab/readme.md
-  checksum: 1695f053573a9cb4ed91f890d7cc797a8286282594aa14e675d8dc83d822436d
+  checksum: 77c4e5beb1c0bccd36be640d53a004afe469036286a5bd11cce11a64e59ec689
